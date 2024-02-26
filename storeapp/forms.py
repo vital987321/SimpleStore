@@ -11,7 +11,7 @@ class UserCreationForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ('name',)
+        fields = ('username',)
 
     def cleen_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -29,3 +29,4 @@ class UserCreationForm(ModelForm):
         if commit:
             user.save()
         return user
+
