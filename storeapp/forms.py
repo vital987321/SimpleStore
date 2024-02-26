@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from storeapp.models import User
+from storeapp.models import User, Purchase
 
 
 class UserCreationForm(ModelForm):
@@ -30,3 +30,9 @@ class UserCreationForm(ModelForm):
             user.save()
         return user
 
+class PurchasingForm(ModelForm):
+
+    class Meta:
+        model = Purchase
+        fields=('product_amount',)
+    # add proccessing client and purchasing_time

@@ -24,6 +24,8 @@
                         <div><small>in stock: {{product.stock_amount}}</small></div>
                         <div><b>$ {{ product.price }}</b></div>
                         <form action="">
+                            {% csrf_token %}
+                            {{form}}
                             <input type="submit" value="Buy">
                         </form>
                         <hr>

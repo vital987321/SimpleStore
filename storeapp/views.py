@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, TemplateView, ListView
+from django.views.generic import CreateView, TemplateView, ListView, FormView
 from django.contrib.auth.views import LoginView, LogoutView
-from .forms import UserCreationForm
+from .forms import UserCreationForm, PurchasingForm
 from .models import Product
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -22,10 +22,15 @@ class IndexView(LoginRequiredMixin, ListView):
     template_name='index.html'
     login_url = 'login/'
     model=Product
-    paginate_by=10
-
+    # paginate_by=10
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = PurchasingForm()
+        return context
 
 
 class Logout(LoginRequiredMixin, LogoutView):
     next_page = '/'
     login_url = 'login/'
+
