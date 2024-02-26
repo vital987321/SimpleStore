@@ -12,6 +12,9 @@ class Product(models.Model):
     stock_amount=models.IntegerField(default=0)
     # picture=models.ImageField(blank=True, null=True)
 
+    def __str__(self) -> str:
+        return f'{str(self.pk)}_{self.name}'
+
 class Purchase(models.Model):
     client=models.ForeignKey(User, on_delete=models.CASCADE, related_name='client')
     product_amount=models.PositiveIntegerField()

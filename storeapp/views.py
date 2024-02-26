@@ -17,20 +17,12 @@ class Login(LoginView):
     def get_success_url(self):
         return self.success_url
     
-# class IndexView(LoginRequiredMixin, TemplateView):
-#     template_name='index.html'
-#     login_url = 'login/'
 
 class IndexView(LoginRequiredMixin, ListView):
     template_name='index.html'
     login_url = 'login/'
     model=Product
     paginate_by=10
-
-    # def get_context_data(self, ***args, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-
-
 
 
 

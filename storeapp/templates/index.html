@@ -8,18 +8,29 @@
         {% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+            <button type="submit">Logout</button>
+        </form>
         <hr></hr>
         <h4>Homepage</h4>
-    <div>
-        <h5>Products:</h5>
-        <ul>
-            {% for product in object_list %}
-                <li>{{ product.name }} - {{ product.price }}</li>
-            {% empty %}
-                <li>No products yet.</li>
-            {% endfor %}
-        </ul>
-    </div>
+        <div>
+            <h5>Products:</h5>
+            <ul>
+                {% for product in object_list %}
+                    <li>
+                        <h4>
+                            {{ product.name }}
+                        </h4>
+                        <div>{{ product.description }}</div>
+                        <div><small>in stock: {{product.stock_amount}}</small></div>
+                        <div><b>$ {{ product.price }}</b></div>
+                        <form action="">
+                            <input type="submit" value="Buy">
+                        </form>
+                        <hr>
+                    </li>
+                {% empty %}
+                    <li>No products yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
 {% endblock %}
