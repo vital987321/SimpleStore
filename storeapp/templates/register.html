@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% comment %} <a href="{% url 'Login' %}"> Login </a> {% endcomment %}
+  <head>
+    <title>Register</title>
+  </head>
+    <a href="{% url 'login' %}"> Login </a>
     <hr></hr>
+    <h4>Register</h4>
     <form method="post">
         {% csrf_token %}
         {{form}}

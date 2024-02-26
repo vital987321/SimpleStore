@@ -3,7 +3,6 @@ from django.forms import ModelForm
 from storeapp.models import User
 
 
-
 class UserCreationForm(ModelForm):
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation',
@@ -22,8 +21,9 @@ class UserCreationForm(ModelForm):
                 code='password_mismatch',
             )
         return password2
+
     def save(self, commit=True):
-        user=super(UserCreationForm, self).save(commit=False)
+        user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()
