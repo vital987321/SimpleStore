@@ -1,18 +1,25 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<head>
-    <title>Homepage</title>
-  </head>
-    <div><b>{{user}}</b> Balance: $ {{user.wallet}} </div>
-    {% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
-    <hr></hr>
-    <h4>Homepage</h4>
-<div>
-    
-</div>
+    <head>
+        <title>Homepage</title>
+      </head>
+        <div><b>{{user}}</b> Balance: $ {{user.wallet}} </div>
+        {% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+        <hr></hr>
+        <h4>Homepage</h4>
+    <div>
+        <h5>Products:</h5>
+        <ul>
+            {% for product in object_list %}
+                <li>{{ product.name }} - {{ product.price }}</li>
+            {% empty %}
+                <li>No products yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
