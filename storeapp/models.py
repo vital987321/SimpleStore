@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     name=models.CharField(max_length=30)
-    wallet=models.DecimalField(decimal_places=2, max_digits=12)
+    wallet=models.DecimalField(decimal_places=2, max_digits=12, default=10000)
     
 
 class Product(models.Model):

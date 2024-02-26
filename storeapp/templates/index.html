@@ -1,7 +1,18 @@
 {% extends 'base.html'%}
 
 {% block content %}
+<head>
+    <title>Homepage</title>
+  </head>
+    <div><b>{{user}}</b> Balance: $ {{user.wallet}} </div>
+    {% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+    <hr></hr>
+    <h4>Homepage</h4>
 <div>
-    <a href="{% url 'logout' %}">Logout </a>
+    
 </div>
 {% endblock %}
