@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.views.generic import CreateView, TemplateView, ListView, FormView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserCreationForm, PurchaseForm
-from .models import Product
+from .models import Product, Purchase
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
+from django.urls import reverse_lazy
 
 
 class Register(CreateView):
@@ -40,10 +40,31 @@ class Logout(LoginRequiredMixin, LogoutView):
 class PurchaseView(CreateView):
     form_class=PurchaseForm
     template_name='purchase.html'
-    success_url=reverse('purchase')
+    success_url=reverse_lazy('purchase')
 
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.client = self.request.user
+        # print('\n form_valid:')
+        # print(form.data)
+        # print(form.data['product_amount'])
         obj.save()
         return super().form_valid(form=form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # print('\n get_context_data:')
+        # print(context['form'].data)
+        return context
+    
+
+class MyOrdersView(LoginRequiredMixin, ListView):
+    template_name = 'myorders.html'
+    login_url = 'login/'
+    model = Purchase
+
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['form'] = PurchaseForm()
+    #     return context

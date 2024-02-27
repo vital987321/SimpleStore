@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<head>
+    <title>My orders</title>
+</head>
+<div><b>{{user}}</b> Balance: $ {{user.wallet}} </div>
+{% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+<hr>
+</hr>
+<a href="{% url 'index' %}"> Home page </a>
+<div>
+    <h5>My orders:</h5>
+    <ul>
+        {% for order in object_list %}
+        <li>
+            <h4>
+                Order: {{ order.pk }}
+            </h4>
+            <p>{{ order.name }}</p>
+            <p>Quantity: {{ order.product_amount }} </p>
+            <hr>
+        </li>
+        {% empty %}
+        <li>No orders yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
