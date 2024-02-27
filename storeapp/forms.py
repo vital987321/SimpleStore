@@ -34,6 +34,7 @@ class PurchaseForm(ModelForm):
     class Meta:
         model = Purchase
         fields=('product_amount',)
-    # add proccessing client and purchasing_time later
+    
+    
    
     

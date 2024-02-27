@@ -34,19 +34,17 @@ class Logout(LoginRequiredMixin, LogoutView):
     next_page = '/'
     login_url = 'login/'
 
-class PurchaseFormView(FormView):
-    template_name='purchase.html'
+
+class PurchaseView(CreateView):
     form_class=PurchaseForm
-    success_url='purchase/'
+    template_name='purchase.html'
+    # success_url='/'
 
-    ##debuging
-    # def form_invalid(self, form):
-    #     print('Invalid PurchaseForm')
+    def get_success_url(self):
+        return 'purchase/'
 
-    
-    # def form_valid(self, form):
-    #     print('Valid PurchaseForm')
-    
-    # def form_valid(self, form):
-    #     print('I am form_valid method')
-    #     print(self.get_success_url())
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.client = self.request.user
+        obj.save()
+        return super().form_valid(form=form)

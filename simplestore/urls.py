@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from storeapp.views import Register, Login, IndexView, Logout, PurchaseFormView
+from storeapp.views import Register, Login, IndexView, Logout, PurchaseView
 
 
 urlpatterns = [
@@ -25,5 +25,5 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('', IndexView.as_view(), name='index'),
     path('logout', Logout.as_view(), name='logout'),
-    path('purchase/', PurchaseFormView.as_view(), name='purchase'),
+    path('purchase/', PurchaseView.as_view(), name='purchase'),
 ]
