@@ -4,6 +4,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserCreationForm, PurchaseForm
 from .models import Product
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+
 
 class Register(CreateView):
     form_class=UserCreationForm
@@ -38,10 +40,7 @@ class Logout(LoginRequiredMixin, LogoutView):
 class PurchaseView(CreateView):
     form_class=PurchaseForm
     template_name='purchase.html'
-    # success_url='/'
-
-    def get_success_url(self):
-        return 'purchase/'
+    success_url=reverse('purchase')
 
     def form_valid(self, form):
         obj = form.save(commit=False)

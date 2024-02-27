@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from storeapp.models import User, Purchase
 
 
+
 class UserCreationForm(ModelForm):
     error_messages = {'password_mismatch': "The two password fields didn't match.",}
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
