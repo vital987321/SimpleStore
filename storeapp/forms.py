@@ -30,9 +30,10 @@ class UserCreationForm(ModelForm):
             user.save()
         return user
 
-class PurchasingForm(ModelForm):
-
+class PurchaseForm(ModelForm):
     class Meta:
         model = Purchase
         fields=('product_amount',)
-    # add proccessing client and purchasing_time
+    # add proccessing client and purchasing_time later
+   
+    

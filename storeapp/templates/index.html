@@ -23,7 +23,7 @@
                         <div>{{ product.description }}</div>
                         <div><small>in stock: {{product.stock_amount}}</small></div>
                         <div><b>$ {{ product.price }}</b></div>
-                        <form method="post">
+                        <form method="post" action="{% url 'purchase' %}">
                             {% csrf_token %}
                             {{form}}
                             <input type="submit" value="Buy">
