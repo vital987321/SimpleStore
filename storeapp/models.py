@@ -17,9 +17,12 @@ class Product(models.Model):
 
 class Purchase(models.Model):
     client=models.ForeignKey(User, on_delete=models.CASCADE, related_name='client')
-    # product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
     product_amount=models.PositiveIntegerField()
     purchasing_time=models.DateField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f'{str(self.pk)}_{self.product.name}'
 
 class Refund(models.Model):
     purchase=models.ForeignKey(Purchase, on_delete=models.CASCADE)

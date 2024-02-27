@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, TemplateView, ListView, FormView
+from django.views.generic import CreateView, TemplateView, ListView, FormView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserCreationForm, PurchaseForm
 from .models import Product, Purchase
@@ -45,9 +45,7 @@ class PurchaseView(CreateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.client = self.request.user
-        # print('\n form_valid:')
-        # print(form.data)
-        # print(form.data['product_amount'])
+        obj.product = Product.objects.get(pk=form.data['productID'])
         obj.save()
         return super().form_valid(form=form)
 
@@ -68,3 +66,7 @@ class MyOrdersView(LoginRequiredMixin, ListView):
     #     context = super().get_context_data(**kwargs)
     #     context['form'] = PurchaseForm()
     #     return context
+
+class ReturnView(DeleteView):
+    model=Purchase
+    success_url = reverse_lazy('myorders')

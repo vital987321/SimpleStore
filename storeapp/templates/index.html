@@ -28,6 +28,7 @@
                         <form method="post" action="{% url 'purchase' %}">
                             {% csrf_token %}
                             {{form}}
+                            <input type="hidden" name="productID" value="{{product.pk}}">
                             <input type="submit" value="Buy">
                         </form>
                         <hr>

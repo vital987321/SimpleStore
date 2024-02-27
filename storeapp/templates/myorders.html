@@ -15,15 +15,20 @@
 </hr>
 <a href="{% url 'index' %}"> Home page </a>
 <div>
-    <h5>My orders:</h5>
+    <h3>My orders:</h3>
     <ul>
         {% for order in object_list %}
         <li>
             <h4>
-                Order: {{ order.pk }}
+                Order number: {{ order.pk }}
             </h4>
-            <p>{{ order.name }}</p>
+            <p>{{ order.product.name }}</p>
+            <p>Price per item: {{ order.product.price}} </p>
             <p>Quantity: {{ order.product_amount }} </p>
+            <form method="post" action="{% url 'return' order.pk %}">
+                {% csrf_token %}
+                <input type="submit" value="Return">
+            </form>
             <hr>
         </li>
         {% empty %}
