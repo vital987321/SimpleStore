@@ -37,6 +37,15 @@ class PurchaseForm(ModelForm):
         model = Purchase
         fields=('product_amount',)
     
+    def cleen_product_amount(self):
+        product_amount=self.cleaned_data.get('product_amount', False)
+        print('\n I am cleen_product_amount')
+        print('product_amount: ', product_amount)
+        if product_amount>3:
+            msg='product_amount>3'
+            self.add_error("product_amount", msg)    
+        return product_amount
     
-   
-    
+    def clean(self):
+        print('\n I am cleen')
+        cleaned_data = super().clean()
