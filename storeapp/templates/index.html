@@ -25,7 +25,7 @@
                         <div>{{ product.description }}</div>
                         <div><small>in stock: {{product.stock_amount}}</small></div>
                         <div><b>$ {{ product.price }}</b></div>
-                        <form method="post" action="{% url 'index' %}">
+                        <form method="post" action="{% url 'purchase' %}">
                             {% csrf_token %}
                             {{form.as_p}}
                             <input type="hidden" name="productID" value="{{product.pk}}">
