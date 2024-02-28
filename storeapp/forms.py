@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from storeapp.models import User, Purchase
+# from django.core.exceptions import ValidationError
 
 
 
@@ -37,15 +38,16 @@ class PurchaseForm(ModelForm):
         model = Purchase
         fields=('product_amount',)
     
-    def cleen_product_amount(self):
-        product_amount=self.cleaned_data.get('product_amount', False)
+    def clean_product_amount(self):
+        product_amount=self.cleaned_data.get('product_amount')
         print('\n I am cleen_product_amount')
         print('product_amount: ', product_amount)
+        print(product_amount>3)
         if product_amount>3:
-            msg='product_amount>3'
-            self.add_error("product_amount", msg)    
+            print('Hi from if')
+            raise forms.ValidationError('product_amount>3')
         return product_amount
     
-    def clean(self):
-        print('\n I am cleen')
-        cleaned_data = super().clean()
+    # def clean(self):
+    #     print('\n I am cleen')
+    #     cleaned_data = super().clean()
