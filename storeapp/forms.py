@@ -33,6 +33,15 @@ class UserCreationForm(ModelForm):
         return user
 
 class PurchaseForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.current_user = kwargs.pop('current_user', None)
+        # print('PurchaseForm __init__ user: ', self.current_user)
+        # print('kvargs:')
+        # print(kwargs)
+        # print('Product id:',kwargs['data'])
+        # print('aa:', self.data)
+        super().__init__(*args, **kwargs)
+        
 
     class Meta:
         model = Purchase
@@ -40,14 +49,25 @@ class PurchaseForm(ModelForm):
     
     def clean_product_amount(self):
         product_amount=self.cleaned_data.get('product_amount')
-        print('\n I am cleen_product_amount')
-        print('product_amount: ', product_amount)
-        print(product_amount>3)
-        if product_amount>3:
+        print(self.cleaned_data)
+        # print('PurchaseForm clean_product_amount user: ', self.current_user)
+        # print('\n I am cleen_product_amount')
+        # print('product_amount: ', product_amount)
+        # print(product_amount>3)
+        # if product_amount>3:
+        #     print('Hi from if')
+        #     raise forms.ValidationError('product_amount>3')
+        # return product_amount
+
+
+        if product_amount>30:
             print('Hi from if')
             raise forms.ValidationError('product_amount>3')
         return product_amount
     
-    # def clean(self):
-    #     print('\n I am cleen')
-    #     cleaned_data = super().clean()
+    def clean(self):
+        print('\n I am cleen')
+        print(self.data)
+        print(self.data['productID'])
+
+        cleaned_data = super().clean()
